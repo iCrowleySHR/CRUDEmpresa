@@ -1,10 +1,10 @@
 <?php
 
-class Conection 
+class Connection 
 {
     private string $join;
     private string $table;
-    private PDO $conection;
+    private PDO $connection;
     private static string $dbname;
     private static string $dbhost;
     private static string $dbuser;
@@ -28,7 +28,7 @@ class Conection
     public function setConection(): void
     {
         try {
-            $this->conection = new PDO("mysql:dbname=".self::$dbname.";host=".self::$dbhost, self::$dbuser, self::$dbpassword);
+            $this->connection = new PDO("mysql:dbname=".self::$dbname.";host=".self::$dbhost, self::$dbuser, self::$dbpassword);
         } catch (\PDOException $th) {
             echo('<script>console.error("ERROR CONECTION")</script>');
         }
@@ -37,7 +37,7 @@ class Conection
     public function execute(string $query, array $values = []): PDOStatement|false
     {
         try {
-            $statement = $this->conection->prepare($query);
+            $statement = $this->connection->prepare($query);
             $statement->execute($values);
             return $statement;
         } catch (\Throwable $th) {
@@ -97,4 +97,4 @@ class Conection
     }
 }
 
-Conection::config('empresateste', 'localhost', 'root', '');
+Connection::config('empresateste', 'localhost', 'root', '');
